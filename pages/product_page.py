@@ -18,3 +18,15 @@ class ProductPage(BasePage):
 
     def alert_price(self):
         return self.browser.find_element(*ProductPageLocators.ALERT_PRICE).text
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ADD_BASKET_SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_not_be_product_title(self):
+        assert self.is_not_element_present(*ProductPageLocators.PRODUCT_TITLE), \
+            "product title is presented, but should not be"
+
+    def should_disappear_of_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.ADD_BASKET_SUCCESS_MESSAGE), \
+            "Success message didn't disappear"
