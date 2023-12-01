@@ -1,5 +1,5 @@
 from .base_page import BasePage
-from .locators import ProductPageLocators
+from .locators import ProductPageLocators, MainPageLocators
 
 
 class ProductPage(BasePage):
@@ -25,8 +25,12 @@ class ProductPage(BasePage):
 
     def should_not_be_product_title(self):
         assert self.is_not_element_present(*ProductPageLocators.PRODUCT_TITLE), \
-            "product title is presented, but should not be"
+            "Product title is presented, but should not be"
 
     def should_disappear_of_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.ADD_BASKET_SUCCESS_MESSAGE), \
             "Success message didn't disappear"
+
+    def product_link_click(self):
+        product_link = self.browser.find_element(*MainPageLocators.PRODUCT_LINK)
+        product_link.click()

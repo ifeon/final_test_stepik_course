@@ -1,5 +1,6 @@
 import pytest
 
+from .pages.basket_page import BasketPage
 from .pages.product_page import ProductPage
 
 
@@ -15,8 +16,8 @@ def test_guest_can_add_product_to_basket(browser, link):
     product_price = page.get_product_price()
     alert_title = page.alert_title()
     alert_price = page.alert_price()
-    assert product_title == alert_title, 'the title doesnt match'
-    assert product_price == alert_price, 'the price doesnt match'
+    assert product_title == alert_title, 'The title doesnt match'
+    assert product_price == alert_price, 'The price doesnt match'
 
 
 @pytest.mark.xfail
@@ -56,3 +57,14 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
                        'https://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/')
     page.open()
     page.go_to_login_page()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    page = ProductPage(browser,
+                       'https://selenium1py.pythonanywhere.com/ru/catalogue/')
+    page.open()
+    page.product_link_click()
+    page = BasketPage(browser,
+                      browser.current_url)
+    page.basket_button_click_quest()
+    page.basket_empty_message()
